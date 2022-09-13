@@ -57,6 +57,18 @@ class Form extends Component {
       />
     );
   }
+
+  renderButton(label) {
+    return (
+      <button
+        disabled={this.validate()}
+        className="btn btn-primary"
+        type="submit"
+      >
+        {label}
+      </button>
+    );
+  }
 }
 
 export default Form;
