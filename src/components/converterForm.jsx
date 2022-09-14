@@ -1,6 +1,10 @@
 import React from "react";
 import Joi from "joi-browser";
 import Form from "./common/form";
+import {
+  getAllCurrencies,
+  getConversionRate,
+} from "./../services/currencyConverterService";
 
 class ConverterForm extends Form {
   state = {
@@ -9,6 +13,7 @@ class ConverterForm extends Form {
       to: "",
       amountToConvert: "",
     },
+    amountConverted: "",
     errors: {},
     availableCurrencies: [],
   };
@@ -19,15 +24,39 @@ class ConverterForm extends Form {
     amountToConvert: Joi.number().min(0).label("Amount to Convert"),
   };
 
+  async populateCurrencies() {
+    const { data: availableCurrencies } = await getAllCurrencies();
+    this.setState({ availableCurrencies });
+  }
+
+  async componentDidMount() {
+    await this.populateCurrencies();
+  }
+
+  doSubmit = async () => {
+    const { from, to, amountToConvert } = this.state.data;
+    const { data: rate } = await getConversionRate(from, to);
+    console.log(amountToConvert * rate);
+    let convertedAmount = (amountToConvert * rate).toFixed(2);
+    const amountConverted = `${to}: ${convertedAmount}`;
+    this.setState({ amountConverted });
+  };
+
   render() {
-    return <div>
+    const { availableCurrencies,amountConverted } = this.state;
+    return (
+      <div>
         <h1>Convert</h1>
         <form onSubmit={this.handleSubmit}>
-            {this.renderSelect("from", "From", this.state.availableCurrencies)}
-            {this.renderSelect("to", "To", this.state.availableCurrencies)}
-            {this.renderButton("Convert")}
+          {this.renderSelect("from", "From", availableCurrencies)}
+          {this.renderSelect("to", "To", availableCurrencies)}
+          {this.renderInput("amountToConvert", "Amount To Convert", "number")}
+          {this.renderButton("Convert")}
         </form>
-    </div>;
+
+        {amountConverted }
+      </div>
+    );
   }
 }
 

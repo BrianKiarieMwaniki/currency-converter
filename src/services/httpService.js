@@ -1,6 +1,6 @@
 import axios from "axios";
-import toast from "react-toastify";
-import { apiUrlbase, apiKey, apiHost } from "../config/config.json";
+import {toast} from "react-toastify";
+import config from "../config/config.json";
 
 axios.interceptors.response.use(null, (error) => {
   const expectedError =
@@ -16,10 +16,10 @@ axios.interceptors.response.use(null, (error) => {
 });
 
 const currencyConverterClient = axios.create({
-    baseURL: apiUrlbase,
+    baseURL: config.apiUrlbase,
     headers:{
-        'X-RapidAPI-Key':apiKey,
-        'X-RapidAPI-Host':apiHost
+        'X-RapidAPI-Key':config.apiKey,
+        'X-RapidAPI-Host':config.apiHost
     }
 });
 
