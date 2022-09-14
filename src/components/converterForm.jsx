@@ -11,7 +11,7 @@ class ConverterForm extends Form {
     data: {
       from: "",
       to: "",
-      amountToConvert: "",
+      amountToConvert: 1,
     },
     amountConverted: "",
     errors: {},
@@ -36,9 +36,8 @@ class ConverterForm extends Form {
   doSubmit = async () => {
     const { from, to, amountToConvert } = this.state.data;
     const { data: rate } = await getConversionRate(from, to);
-    console.log(amountToConvert * rate);
     let convertedAmount = (amountToConvert * rate).toFixed(2);
-    const amountConverted = `${to}: ${convertedAmount}`;
+    const amountConverted = `${to} ${convertedAmount}`;
     this.setState({ amountConverted });
   };
 
@@ -46,15 +45,13 @@ class ConverterForm extends Form {
     const { availableCurrencies,amountConverted } = this.state;
     return (
       <div>
-        <h1>Convert</h1>
         <form onSubmit={this.handleSubmit}>
           {this.renderSelect("from", "From", availableCurrencies)}
           {this.renderSelect("to", "To", availableCurrencies)}
-          {this.renderInput("amountToConvert", "Amount To Convert", "number")}
-          {this.renderButton("Convert")}
+          {this.renderInput("amountToConvert", "Amount", "number")}
+          {this.renderButton("convert")}
         </form>
-
-        {amountConverted }
+          <input className="form-control mt-2" value={amountConverted} disabled/>
       </div>
     );
   }

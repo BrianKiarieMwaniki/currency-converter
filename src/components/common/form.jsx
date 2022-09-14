@@ -45,10 +45,11 @@ class Form extends Component {
     this.doSubmit();
   };
 
-  renderInput(name, label, type = "text") {
+  renderInput(name, label, type = "text", min="1") {
     const { data, errors } = this.state;
     return (
       <Input
+      min={min}
         type={type}
         name={name}
         value={data[name]}
@@ -75,13 +76,15 @@ class Form extends Component {
 
   renderButton(label) {
     return (
-      <button
-        disabled={this.validate()}
-        className="btn btn-primary"
-        type="submit"
-      >
-        {label}
-      </button>
+      <div className="d-grid">
+        <button
+          disabled={this.validate()}
+          className="btn btn-success text-white"
+          type="submit"
+        >
+          {label}
+        </button>
+      </div>
     );
   }
 }
