@@ -29,19 +29,22 @@ html {
   font-weight: 600;
   color: #fff;
   text-align: center;
+  text-shadow: 2px 2px 2px rgba(255, 255, 255, 0);
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: black;
+  text-shadow: 4px 3px 0 #7a7a7a;
 }
 
 .App-content > div {
   text-align: center;
   padding: 1rem;
-  background: rgba(255,255,255, 0.5);
+  background: rgba(255, 255, 255, 0.5);
   border-radius: 4px;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(1.9px);
-  -webkit-backdrop-filter: blur(1.9px);
+  backdrop-filter: blur(5.9px);
+  -webkit-backdrop-filter: blur(5.9px);
   border: 1px solid rgba(255, 255, 255, 0.17);
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .btn {

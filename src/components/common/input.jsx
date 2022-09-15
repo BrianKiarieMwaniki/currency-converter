@@ -1,7 +1,7 @@
 const Input = ({ name, label, error, ...rest }) => {
   return (
     <div className="row mb-3 align-items-center">
-      <div className="col-4 text-end">
+      <div className="col text-end">
         <label
           htmlFor={name}
           className="col-form-label text-success fw-bold fs-5"
@@ -9,7 +9,7 @@ const Input = ({ name, label, error, ...rest }) => {
           {label}
         </label>
       </div>
-      <div className="col-7">
+      <div className="col">
         {" "}
         <input {...rest} name={name} id={name} className="form-control" />
       </div>
