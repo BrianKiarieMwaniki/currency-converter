@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import Joi from 'joi-browser';
-import Select from './select';
-import Input from './input';
+import React, { Component } from "react";
+import Joi from "joi-browser";
+import Select from "./select";
+import Input from "./input";
 
 class Form extends Component {
   state = {
@@ -45,11 +45,11 @@ class Form extends Component {
     this.doSubmit();
   };
 
-  renderInput(name, label, type = "text", min="1") {
+  renderInput(name, label, type = "text", min = "1") {
     const { data, errors } = this.state;
     return (
       <Input
-      min={min}
+        min={min}
         type={type}
         name={name}
         value={data[name]}
@@ -74,7 +74,7 @@ class Form extends Component {
     );
   }
 
-  renderButton(label) {
+  renderButton(label, isLoading) {
     return (
       <div className="d-grid">
         <button
@@ -82,7 +82,15 @@ class Form extends Component {
           className="btn btn-success text-white"
           type="submit"
         >
-          {label}
+          {isLoading ? (
+            <span
+              class="spinner-grow spinner-grow-sm"
+              role="status"
+              aria-hidden="true"
+            ></span>
+          ) : (
+            <span>{label}</span>
+          )}
         </button>
       </div>
     );
