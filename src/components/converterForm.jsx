@@ -16,6 +16,7 @@ class ConverterForm extends Form {
     amountConverted: "",
     errors: {},
     availableCurrencies: [],
+    isLoading: false
   };
 
   schema = {
@@ -33,12 +34,22 @@ class ConverterForm extends Form {
     await this.populateCurrencies();
   }
 
+  setLoading(isLoading){
+    this.setState({isLoading})
+  }
+
   doSubmit = async () => {
-    const { from, to, amountToConvert } = this.state.data;
-    const { data: rate } = await getConversionRate(from, to);
-    let convertedAmount = (amountToConvert * rate).toFixed(2);
-    const amountConverted = `${to} ${convertedAmount}`;
-    this.setState({ amountConverted });
+    try {
+      
+      const { from, to, amountToConvert } = this.state.data;
+      this.setLoading(true);
+      const { data: rate } = await getConversionRate(from, to);
+      let convertedAmount = (amountToConvert * rate).toFixed(2);
+      const amountConverted = `${to} ${convertedAmount}`;
+      this.setState({ amountConverted });
+    } finally {
+      this.setLoading(false);
+    }
   };
 
   render() {
@@ -49,7 +60,7 @@ class ConverterForm extends Form {
           {this.renderSelect("from", "From", availableCurrencies)}
           {this.renderSelect("to", "To", availableCurrencies)}
           {this.renderInput("amountToConvert", "Amount", "number")}
-          {this.renderButton("convert")}
+          {this.renderButton("convert", this.state.isLoading)}
         </form>
           <input className="form-control mt-2" value={amountConverted} disabled/>
       </div>

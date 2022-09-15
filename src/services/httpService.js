@@ -16,11 +16,11 @@ axios.interceptors.response.use(null, (error) => {
 });
 
 const currencyConverterClient = axios.create({
-    baseURL: config.apiUrlbase,
-    headers:{
-        'X-RapidAPI-Key':config.apiKey,
-        'X-RapidAPI-Host':config.apiHost
-    }
+  baseURL: config.apiUrlbase,
+  headers: {
+    "X-RapidAPI-Key": process.env.REACT_APP_API_KEY,
+    "X-RapidAPI-Host": process.env.REACT_APP_API_HOST,
+  },
 });
 
 export default currencyConverterClient;
